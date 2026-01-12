@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema Local Veterinário</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <header class="site-header header-flex">
+  <img
+    src="c95d1178-c23b-4677-93ce-f5f6b5c701e4.png"
+    alt="Equipe veterinária"
+    class="header-logo"
+  />
+
+  <div>
+    <p class="tag">Centro Veterinário · Santa Cruz do Sul/RS</p>
+    <h1>Sistema Local de Gestão Veterinária</h1>
+    <p class="subtitle">
+      Controle interno para filas de atendimento, cirurgias, consultas e escalas de equipe.
+    </p>
+  </div>
+</header>
+
+
+    <main>
+      <section class="panel">
+        <h2>Cadastro rápido</h2>
+
+        <form id="intake-form">
+          <div class="grid">
+            <label>
+  Data do atendimento
+  <input type="date" name="date" id="intake-date" required />
+</label>
+
+            <label>
+              Dono
+              <input type="text" name="tutor" placeholder="Nome do tutor" required />
+            </label>
+
+            <label>
+              Animal
+              <input type="text" name="pet" placeholder="Nome do animal" required />
+            </label>
+
+            <label>
+              Prioridade
+              <select name="priority">
+                <option value="Rotina">Rotina</option>
+                <option value="Urgente">Urgente</option>
+                <option value="Emergência">Emergência</option>
+              </select>
+            </label>
+
+            <label>
+              Serviço
+              <input placeholder="Ex: sacrificar animal kk" />
+            </label>
+
+           
+            <label>
+              Turno do atendimento
+              <select name="shift" id="intake-shift" required>
+                <option value="Manhã">Manhã</option>
+                <option value="Tarde">Tarde</option>
+                <option value="Noite">Noite</option>
+              </select>
+            </label>
+
+            
+            <label>
+              Profissional
+              <select name="professional" id="intake-professional" required>
+                <option value="">Selecione um turno primeiro</option>
+              </select>
+            </label>
+          </div>
+
+          <button type="submit">Adicionar à fila</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Filas em andamento</h2>
+          <p>Agilize atendimento, cirurgias e consultas com visão local em tempo real.</p>
+        </div>
+        <div class="queue-grid" id="queue-grid"></div>
+      </section>
+
+      <section class="panel ai-panel">
+        <div class="panel-header">
+          <h2>Assistente inteligente</h2>
+          <p>Organiza prioridades e sugere escala e agenda automaticamente.</p>
+        </div>
+
+        <div class="ai-actions">
+          <button type="button" id="ai-sort">Ordenar fila por prioridade</button>
+          <button type="button" class="secondary" id="ai-schedule">Gerar agenda sugerida</button>
+        </div>
+
+        <div class="ai-output">
+          <div>
+            <h3>Fila priorizada</h3>
+            <ol id="ai-queue" class="ai-list"></ol>
+          </div>
+          <div>
+            <h3>Agenda sugerida</h3>
+            <ul id="ai-agenda" class="ai-list"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Escalas de equipe</h2>
+
+        <form id="schedule-form" class="schedule-form">
+  <label>
+    Profissional
+    <input type="text" name="staff" placeholder="Nome do profissional" required />
+  </label>
+
+  <label>
+    Função
+    <input type="text" name="role" placeholder="Ex: Veterinário, Auxiliar" required />
+  </label>
+
+  <label>
+    Turno
+    <select name="shift" required>
+      <option value="Manhã">Manhã</option>
+      <option value="Tarde">Tarde</option>
+      <option value="Noite">Noite</option>
+    </select>
+  </label>
+
+  
+  <label>
+    Disponibilidade
+    <select name="availability" id="schedule-availability" required>
+      <option value="all">Todos os dias</option>
+      <option value="date">Dia específico</option>
+      <option value="weekday">Dia da semana</option>
+    </select>
+  </label>
+
+  
+  <label id="schedule-date-wrap">
+    Data (se for dia específico)
+    <input type="date" name="workDate" id="schedule-date" />
+  </label>
+
+  
+  <label id="schedule-weekday-wrap">
+    Dia da semana (se for semanal)
+    <select name="weekday" id="schedule-weekday">
+      <option value="0">Domingo</option>
+      <option value="1">Segunda</option>
+      <option value="2">Terça</option>
+      <option value="3">Quarta</option>
+      <option value="4">Quinta</option>
+      <option value="5">Sexta</option>
+      <option value="6">Sábado</option>
+    </select>
+  </label>
+
+  <button type="submit">Adicionar à escala</button>
+</form>
+
+
+        <ul id="schedule-list" class="schedule-list"></ul>
+      </section>
+
+      <section class="panel metrics">
+        <h2>Indicadores operacionais</h2>
+        <div class="metrics-grid">
+          <div class="metric">
+            <span class="metric-label">Atendimentos do dia</span>
+            <strong id="metric-attendances">0</strong>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Cirurgias agendadas</span>
+            <strong id="metric-surgeries">0</strong>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Tempo médio de espera</span>
+            <strong id="metric-wait">0 min</strong>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Profissionais em escala</span>
+            <strong id="metric-staff">0</strong>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Sistema local desenvolvido para agilizar processos hospitalares de animais, com foco em
+        produtividade e bem-estar.
+      </p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
